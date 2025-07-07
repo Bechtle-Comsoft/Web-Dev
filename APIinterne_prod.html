@@ -1,9 +1,10 @@
+
 <!doctype html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Ma page de test</title>
+    <title>Ma page a moiii</title>
 
   <style>
         button {
@@ -19,8 +20,13 @@
         button:hover {
             background-color: #45a049; /* Légèrement plus foncé au survol */
         }
+    
+        input {
+          width: 100%;
+          height: 30px;
+        }
 
-	 #result1 {
+	        #result1 {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ddd;
@@ -28,42 +34,161 @@
             min-height: 50px;
         }
 
-	 #result2 {
+	        #result2 {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             min-height: 50px;
+	            width: 50%;
         }
 
+    /*/ container */
+        .containerMid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          border: 2px dashed #ddd;
+          padding: 10px;
+          
+        }
 
+        .item {
+            flex: 1 1 600px; /* 1: peut grandir, 1: peut rétrécir, 600px: largeur de base */
+            border: 1px solid blue;
+            padding: 10px;
+            box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur/hauteur */
+        }
+
+        /* Styles spécifiques pour le premier élément (optionnel) */
+        .item:first-child {
+            border-color: green;
+        }
+
+        /* Styles spécifiques pour le deuxième élément (optionnel) */
+        .item:last-child {
+            border-color: pink;
+        }
+
+        /* LE DROPDOWN MENU*/
+      h4 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Basic styling for the label */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Styling for the select element itself */
+.custom-dropdown {
+    width: 200px; /* Set a fixed width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    appearance: none; /* Removes default browser styling for select */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+    cursor: pointer;
+    outline: none; /* Remove outline on focus */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+/* Add a custom arrow (optional, as appearance: none removes default) */
+/* This is a common technique to create a custom dropdown arrow */
+.custom-dropdown {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 30px; /* Make space for the custom arrow */
+}
+
+
+/* Styling for when the dropdown is hovered */
+.custom-dropdown:hover {
+    border-color: #999;
+}
+
+/* Styling for when the dropdown is focused (clicked/tabbed to) */
+.custom-dropdown:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Glow effect */
+}
+
+/* Styling for the options (less control here, browser dependent) */
+/* You have limited control over the styling of the individual options within the dropdown */
+.custom-dropdown option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* You can also style the options when they are hovered in some browsers */
+.custom-dropdown option:hover {
+    background-color: #f0f0f0;
+}
+/*fin dropdown*/
+    
     </style>
 
   </head>
   <body>
     <img src="https://s2.qwant.com/thumbr/474x447/7/2/cec9cc9aaba45e6a6cd4df683760e7d804047250cfd57371f4f23c625fe084/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.822lmeyFoj5kipV5a3RxnQHaG_%26pid%3DApi&q=0&b=1&p=0&a=0" alt="Mon image de test" height="42" width"42" />
 
+    <div class="containerMid">
+      <div class="item"> 
+        <h1> Recherche Jeu </h1>
+        <button id ="myButt" >Cliquez-moi !</button>
+        <div id="result1">Résultat de l'API1 apparaîtra ici.</div>
+      </div>
+      
+      <div class="item">          
+        <h2> Lister Jeu </h2>
+        <button id ="Bouton2" >ListAll !</button>
+        <div id="result2">Résultat de l'API2 apparaîtra ici.</div>
+      </div>
+    </div>   
+      
+    <hr>  
+    <h2> TEST bouto2n </h2>
+    <button id ="RESET" onclick="resetData('result1','result2','result3')">Reset !</button>
+    
+    <hr>
+    
+    <div class="containerMid">
+      <input type="string" name="Jeu" id="Saisie_Jeu" placeholder="Jeu à choisir"/>
+       <div id="result3">Résultat du champ apparaîtra ici.</div>
+    </div>  
+    <hr>
+    
+    <h4>My Dropdown List</h4>
 
-<h1> TEST bouton </h1>
-    <button id ="myButt" onclick="fetchData('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','Flowers','result1')">Cliquez-moi !</button>
- <div id="result1">Résultat de l'API1 apparaîtra ici.</div>
+    <label for="myDropdown">Quel jeu :</label>
+    <select id="myDropdown" class="custom-dropdown">
+        <option value="aaa">AAA</option>
+        <option value="bbb">BBB</option>
+        <option value="ccc">CCC</option>
+    </select>
 
-<h2> TEST bouto2n </h2>
-    <button id ="Bouton2" onclick="fetchData('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','/listerTout','result2')">ListAll !</button>
- <div id="result2">Résultat de l'API2 apparaîtra ici.</div>
-
-
-
-
+      <hr>
+        
+      
 	<script>
          
-                async function fetchData(urlJeu,jeuCall="/listerTout",affiche) {
+      //logique data
+      async function recupData(urlJeu,jeuCall="/listerTout") {
 
-            const data = {
-               
+            const data = {              
                     Jeu: jeuCall,
-                    code: 1
-                
+                    code: 1               
             };
 
             try {
@@ -71,22 +196,99 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
+                        //TODO ajouter securite header et token
                     },
                     body: JSON.stringify(data)
                 });
 
                 if (!response.ok) {
                     throw new Error(`Erreur HTTP: ${response.status}`);
+                    return 'errooor';
                 }
 
-                const responseData = await response.json();
-                document.getElementById(affiche).innerText = JSON.stringify(responseData, null, 2);
+                const responseData = await response.json();                
+                return JSON.stringify(responseData, null, 2);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données:', error);
-                document.getElementById(affiche).innerText = 'Erreur lors de la récupération des données.';
+                return 'Erreur lors de la récupération des données.';
             }
         }
-    </script>
+
+	async function resetData(affich1,affich2,affich3) {
+            document.getElementById(affich1).innerText = 'Reset';
+            document.getElementById(affich2).innerText = 'Reset.';
+	   // const champJeu = JSON.stringify(document.getElementById('Saisie_Jeu')); //gerer le caz vide
+	    const champJeu = document.getElementById('Saisie_Jeu').value;
+	           document.getElementById(affich3).innerText = champJeu;
+        }
+
+
+      	function displayData(selectorCSS, data) {
+            const element = document.querySelector(selectorCSS);
+            if (element) {
+                // Vous pouvez adapter ce formatage selon la structure de vos données
+                element.textContent = JSON.stringify(data, null, 2);
+                // Exemple pour des données structurées:
+// if (data && typeof data === 'object' && data.title) {
+                //     element.innerHTML = `<h2>${data.title}</h2><p>${data.description || 'Pas de description.'}</p>`;
+                // } else {
+                //     element.textContent = JSON.stringify(data, null, 2);
+                // }
+            } else {
+                console.error(`Erreur: L'élément avec le sélecteur "${selectorCSS}" est introuvable.`);
+            }
+        }
+    
+ //logique de gestion des events
+document.addEventListener('DOMContentLoaded', () => {
+            const myButton = document.getElementById('myButt');
+            const myButton2 = document.getElementById('Bouton2');
+            const targetDiv = '#result1'; // Le sélecteur de l'élément où afficher le résultat
+            const apiUrl = 'http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519';
+            const bouton2Div = '#result2'; 
+            const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, ou est-il implicite dans l'URL du webhook ?
+            // Si 'Flowers' est un paramètre à envoyer AVEC la requête, il faudrait adapter `recupData` pour l'inclure.
+        
+  
+//on peut simplifier encore lencode
+            if (myButton) {
+                myButton.addEventListener('click', async () => {
+                    try {                                               
+           //            const data = await recupData(apiUrl,jeuChoisi);
+                      const champJeu2 = document.getElementById('Saisie_Jeu').value.toString(); //gerer le caz vide
+                      const data = await recupData(apiUrl,champJeu2);
+                        displayData(targetDiv, data);
+                    } catch (error) {
+                        displayData(targetDiv, { error: `Impossible de charger les données: ${error.message}` });
+                    }
+                });
+            } else {
+                console.error("Le bouton avec l'ID 'myButt' est introuvable.");
+                displayData(targetDiv, { error: `Impossible probleme button}` });
+            }            
+          
+            if (myButton2) {
+                Bouton2.addEventListener('click', async () => {
+                    try {                                               
+                        const data = await recupData(apiUrl,'/listerTout');
+                        displayData(bouton2Div, data);
+                    } catch (error) {
+                        displayData(bouton2Div, { error: `Impossible de charger les données: ${error.message}` });
+                    }
+                });
+            } else {
+                console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
+                displayData(bouton2Div, { error: `Impossible probleme butto2n}` });
+            }
+    
+    
+        });    
+
+      </script>
 
   </body>
 </html>
+
+    
+    
+    
