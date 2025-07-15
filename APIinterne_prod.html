@@ -354,7 +354,8 @@ label {
                     return 'errooor';
                 }
 
-                const responseData = await response.json();                
+                const responseData = await response.json();
+
                 return JSON.stringify(responseData, null, 2);
             } catch (error) {
                 console.error('Erreur lors de la récupération des données:', error);
@@ -385,7 +386,10 @@ async function recupData2(urlJeu,jeuCall="/listerTout") {
                     return 'errooor';
                 }
 
-                const responseData = await response.json();                
+                const responseData = await response.json(); 
+console.log("AVANT");  
+console.log("Mes données avant traitement :", responseData);                
+console.log("APRES");                 
                 return responseData
             } catch (error) {
                 console.error('Erreur lors de la récupération des données:', error);
@@ -474,9 +478,29 @@ document.addEventListener('DOMContentLoaded', () => {
   
   //teste dorpdown
 const maListeDeJeuxSimples = ["Flowers", "Dekal", "Pixies", "Explorers", "Guardians", "Legends"];
-const listeDeroulante = document.getElementById('myDropdown');
+
+
+async function peuplerListeDeroulante() {
+	const listeDeroulante = document.getElementById('myDropdown');
+
+    try {                                               
+                        
+const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
+const jeux =test[0].Jeu;
+
+
+ if (!Array.isArray(jeux) || jeux.length === 0) {
+            console.warn("Le tableau de jeux est vide ou mal formaté.");
+            // Gérer ce cas (par exemple, afficher un message à l'utilisateur)
+            return; // Sortir de la fonction si pas de jeux
+        }
+  const test2 = test[0].Jeu[3];
+  console.log(test2);
+
+
+
 listeDeroulante.innerHTML = '';
-maListeDeJeuxSimples.forEach(jeu => {
+jeux.forEach(jeu => {
             const option = document.createElement('option'); // Crée un nouvel élément <option>
             option.value = jeu; // La valeur de l'option (ce qui sera envoyé si le formulaire est soumis)
             option.textContent = jeu; // Le texte visible dans la liste déroulante
@@ -489,6 +513,12 @@ maListeDeJeuxSimples.forEach(jeu => {
         defaultOption.selected = true; // Pour la sélectionner par défaut
         defaultOption.disabled = true; // Pour qu'elle ne soit pas sélectionnable après le choix initial
         listeDeroulante.prepend(defaultOption);
+                    } catch (error) {
+                        console.log("aaaaaaaaaaaaaaaaaaaaa");
+                    }
+}
+
+peuplerListeDeroulante();
   
   ;    
 
