@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="fr">
   <head>
@@ -7,6 +6,102 @@
     <title>Ma page a moiii</title>
 
   <style>
+
+ body {
+  margin: 0;
+  padding-top :62px; /* Ajoute l'écrat pour que la bannière apparaisse et n'écrase pas le contenu */
+  background-color: #ddd
+ }
+
+
+ /* BANNIERE CENTRALE AU CENTRE */
+
+ .fixed-banner {
+     position: fixed; /* La bannière reste fixe par rapport à la fenêtre du navigateur */
+    top: 0; /* Colle la bannière au bord sup */
+    left: 0; /* Colle a gauche */
+    width: 100%;
+    height: 63px; /* Hauteur */
+    background-color: #000; 
+    color: white; /* Couleur du texte */
+    display: flex; /* flexbox pour centrer le contenu */
+    align-items: center; /* Centre verticalement */
+    justify-content: left; /* Centre a gauche */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère pour un effet de profondeur */
+    z-index: 1000; /* Assure que la bannière est au-dessus des autres éléments */
+ }
+
+ .fixed-banner h1 {
+     margin: 0; /* Supprime la marge par défaut du titre */
+     font-size: 1.5em;
+ } 
+    /* Styles du logo */
+.logo {
+    height: 42px; /* Hauteur du logo (ajustez si nécessaire) */
+    width: auto; /* La largeur auto pour maintenir les proportions */
+    margin-right: 20px;
+}
+
+ /* Menu DE GAUCHE */
+
+ .main-layout {
+     display: flex; /* Utilise Flexbox pour positionner le menu et le contenu */
+     min-height: 100vh; /* S'assure que le conteneur prend au moins toute la hauteur de la vue */
+ }
+
+ .fixed-sidebar {
+     position: fixed; /* Le menu reste fixe par rapport à la fenêtre */
+     top: 62px; /* Laisse la place de la barre centrale */
+     left: 0; /* Colle au bord gauche */
+     width: 200px; /* Largeur du menu */
+     height: 100%; /* Prend toute la hauteur de la fenêtre restante */
+     background-color: #666666; /* Couleur de fond */
+     padding: 20px;
+     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+     z-index: 999; /* Moins que la bannière si vous les combinez */
+ }
+
+ .fixed-sidebar nav ul {
+     list-style: none; /* Supprime les puces des listes */
+     padding: 0;
+ }
+
+ .fixed-sidebar nav ul li {
+     margin-bottom: 10px;
+ }
+
+ .fixed-sidebar nav ul li a {
+     text-decoration: none; /* Supprime le soulignement des liens */
+     color: #333;
+     display: block;
+     padding: 5px 0;
+     transition: color 0.3s ease;
+ }
+
+ .fixed-sidebar nav ul li a:hover {
+     color: #007bff;
+ }
+
+ .main-content {
+     margin-left: 220px; /* Décale le contenu principal pour laisser de la place au menu de gauche */
+     padding: 20px;
+     flex-grow: 1; /* Permet au contenu de prendre l'espace restant */
+ }
+
+ /* Media Query pour la responsivité */
+ @media (max-width: 768px) {
+     .fixed-sidebar {
+         display: none; /* Cache le menu si la largeur de l'écran est inférieure ou égale à 768px */
+     }
+
+     .main-content {
+         margin-left: 0; /* Supprime le décalage du contenu principal */
+     }
+ }
+
+ /* FIN Menu DE GAUCHE */
+
+
         button {
             background-color: #4CAF50; /* Couleur de fond verte */
             color: white; /* Texte blanc */
@@ -26,7 +121,7 @@
           height: 30px;
         }
 
-	        #result1 {
+         #result1 {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ddd;
@@ -34,13 +129,13 @@
             min-height: 50px;
         }
 
-	        #result2 {
+         #result2 {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             min-height: 50px;
-	            width: 50%;
+             width: 50%;
         }
 
     /*/ container */
@@ -69,6 +164,14 @@
         .item:last-child {
             border-color: pink;
         }
+   
+         .item2 {
+            flex: 1 1 200px; /* 1: peut grandir, 1: peut rétrécir, 600px: largeur de base */
+            border: 1px solid blue;
+            padding: 0px;
+            /*Inclut le padding et la bordure dans la largeur/hauteur */
+        }
+
 
         /* LE DROPDOWN MENU*/
       h4 {
@@ -141,21 +244,68 @@ label {
 
   </head>
   <body>
-    <img src="https://s2.qwant.com/thumbr/474x447/7/2/cec9cc9aaba45e6a6cd4df683760e7d804047250cfd57371f4f23c625fe084/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.822lmeyFoj5kipV5a3RxnQHaG_%26pid%3DApi&q=0&b=1&p=0&a=0" alt="Mon image de test" height="42" width"42" />
+ <div class="fixed-banner">
+    <img src="https://cdn.leonardo.ai/users/65caef68-b2fc-4b3c-aea2-9b83729fe324/generations/3ff4bb09-3030-4371-ac86-1ab69946b291/AlbedoBase_XL_Professional_graphic_design_2D_illustration_Crea_3.jpg" alt="Mon image de test" class="logo" />
+   <h1>Ma Bannière Fixe - Titre</h1>
+ </div>
 
-    <div class="containerMid">
-      <div class="item"> 
-        <h1> Recherche Jeu </h1>
-        <button id ="myButt" >Cliquez-moi !</button>
-        <div id="result1">Résultat de l'API1 apparaîtra ici.</div>
-      </div>
+
+/*fin dropdown*/
+
+<div class="main-layout">
+    <div class="fixed-sidebar">
+        <nav>
+            <ul>
+                <li><a href="www.google.com">Lien 1google</a></li>
+                <li><a href="#">Lien 2</a></li>
+                <li><a href="#">Lien 3</a></li>
+                <li><a href="#">Lien 4</a></li>
+            </ul>
+            <hr>
+            <ul>
+                <li><a href="www.google.com">Lien 5e</a></li>
+                <li><a href="#">Lien 62</a></li>
+            </ul>
+          
+        </nav>
+    </div>
+  
+  
+<div class="main-content">
+  
+  <div class="containerMid">
+   
+       <div class="item"> 
+        
+         <div class="containerMid">            
+               <div class="item2" > 
+                <h12> Score de Mr B</h12>
+                <div id="result5">TODO Api authent + extract sur autre base de doonnees les resultats</div>
+             </div>    
+           <div class="item2"> 
+               <div id="chart_div" ></div>
+             </div> 
+          </div>
+       </div>
       
-      <div class="item">          
-        <h2> Lister Jeu </h2>
-        <button id ="Bouton2" >ListAll !</button>
-        <div id="result2">Résultat de l'API2 apparaîtra ici.</div>
-      </div>
-    </div>   
+     <div class="item">          
+          <div id="donutchart" ></div>
+     </div>
+  </div>   
+  
+   <div class="containerMid">
+       <div class="item"> 
+          <h1> Recherche Jeu </h1>
+          <button id ="myButt" >Cliquez-moi !</button>
+          <div id="result1">Résultat de l'API1 apparaîtra ici.</div>
+       </div>
+      
+     <div class="item">          
+         <h2> Lister Jeu </h2>
+         <button id ="Bouton2" >ListAll !</button>
+         <div id="result2">Résultat de l'API2 apparaîtra ici.</div>
+     </div>
+  </div>   
       
     <hr>  
     <h2> TEST bouto2n </h2>
@@ -164,7 +314,7 @@ label {
     <hr>
     
     <div class="containerMid">
-      <input type="string" name="Jeu" id="Saisie_Jeu" placeholder="Jeu à choisir"/>
+       <input type="string" name="Jeu" id="Saisie_Jeu" placeholder="Jeu à choisir"/>
        <div id="result3">Résultat du champ apparaîtra ici.</div>
     </div>  
     <hr>
@@ -179,9 +329,9 @@ label {
     </select>
 
       <hr>
-        
+</div> 
       
-	<script>
+ <script>
          
       //logique data
       async function recupData(urlJeu,jeuCall="/listerTout") {
@@ -214,26 +364,66 @@ label {
             }
         }
 
-	async function resetData(affich1,affich2,affich3) {
-            document.getElementById(affich1).innerText = 'Reset';
-            document.getElementById(affich2).innerText = 'Reset.';
-	   // const champJeu = JSON.stringify(document.getElementById('Saisie_Jeu')); //gerer le caz vide
-	    const champJeu = document.getElementById('Saisie_Jeu').value;
-	           document.getElementById(affich3).innerText = champJeu;
+//TESSSSSSSSSSSST
+async function recupData2(urlJeu,jeuCall="/listerTout") {
+
+            const data = {              
+                    Jeu: jeuCall,
+                    code: 1               
+            };
+
+            try {
+                const response = await fetch(urlJeu, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        //TODO ajouter securite header et token
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                    return 'errooor';
+                }
+
+                const responseData = await response.json();                
+                return responseData
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données:', error);
+                return 'Erreur lors de la récupération des données.';
+            }
         }
 
 
-      	function displayData(selectorCSS, data) {
+ async function resetData(affich1,affich2,affich3) {
+            document.getElementById(affich1).innerText = 'Reset';
+            document.getElementById(affich2).innerText = 'Reset.';
+    // const champJeu = JSON.stringify(document.getElementById('Saisie_Jeu')); //gerer le caz vide
+     const champJeu = document.getElementById('Saisie_Jeu').value;
+  const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
+  const test2 = test[0].Jeu[3];
+  console.log(test2);
+            document.getElementById(affich3).innerText = test2;
+        }
+
+
+       function displayData(selectorCSS, data) {
             const element = document.querySelector(selectorCSS);
             if (element) {
                 // Vous pouvez adapter ce formatage selon la structure de vos données
+            // if (data && typeof data === 'object' && data.Thème) {
+            // element.textContent = data.Thème;
+             
                 element.textContent = JSON.stringify(data, null, 2);
+             
+             
                 // Exemple pour des données structurées:
-// if (data && typeof data === 'object' && data.title) {
-                //     element.innerHTML = `<h2>${data.title}</h2><p>${data.description || 'Pas de description.'}</p>`;
-                // } else {
-                //     element.textContent = JSON.stringify(data, null, 2);
-                // }
+// if (data && typeof data === 'object' && data.Thème) {
+                // element.innerHTML = `<h2>${data.title}</h2><p>${data.description || 'Pas de description.'}</p>`;
+              // } else {
+            // element.textContent = JSON.stringify(data, null, 2);
+      // }
             } else {
                 console.error(`Erreur: L'élément avec le sélecteur "${selectorCSS}" est introuvable.`);
             }
@@ -246,15 +436,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetDiv = '#result1'; // Le sélecteur de l'élément où afficher le résultat
             const apiUrl = 'http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519';
             const bouton2Div = '#result2'; 
-            const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, ou est-il implicite dans l'URL du webhook ?
-            // Si 'Flowers' est un paramètre à envoyer AVEC la requête, il faudrait adapter `recupData` pour l'inclure.
+            const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, 
+            
         
   
 //on peut simplifier encore lencode
             if (myButton) {
                 myButton.addEventListener('click', async () => {
                     try {                                               
-           //            const data = await recupData(apiUrl,jeuChoisi);
+           // const data = await recupData(apiUrl,jeuChoisi);
                       const champJeu2 = document.getElementById('Saisie_Jeu').value.toString(); //gerer le caz vide
                       const data = await recupData(apiUrl,champJeu2);
                         displayData(targetDiv, data);
@@ -285,10 +475,72 @@ document.addEventListener('DOMContentLoaded', () => {
         });    
 
       </script>
+    
+       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge','corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Victory', 80],
+        ]);
+
+        var options = {
+         // width: 500, height: 220,
+          redFrom: 0, redTo: 25,
+         yellowFrom: 20, yellowTo: 50,
+          greenFrom:75, greenTo: 100,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(100 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+      //2eme chart
+     var data2 = google.visualization.arrayToDataTable([
+          ['Type de jeu', 'Nb de parties'],
+          ['Cartes', 11],
+          ['Reflexion', 2],
+          ['Strategie', 2],
+          ['Aleatoire', 4],
+          ['Dés', 7]
+        ]);
+
+        var options2 = {
+          title: 'Top 5 type de jeu',
+          pieHole: 0.4,
+          backgroundColor: '#ddd',
+          chartArea: {
+                    height: '100%', // La hauteur de la zone de tracé est de 60% de la hauteur totale du conteneur
+                    width: '100%', // La largeur de la zone de tracé est de 80% de la largeur totale du conteneur
+                    left: '0', // Décalage depuis le bord gauche du conteneur (en pourcentage)         
+                },
+          
+        };
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart2.draw(data2, options2);     
+          
+      }
+    
+    
+    
+      
+
+    </script>
+
 
   </body>
 </html>
-
-    
-    
-    
