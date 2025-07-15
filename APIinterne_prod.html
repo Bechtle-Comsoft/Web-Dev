@@ -250,8 +250,6 @@ label {
  </div>
 
 
-/*fin dropdown*/
-
 <div class="main-layout">
     <div class="fixed-sidebar">
         <nav>
@@ -323,9 +321,9 @@ label {
 
     <label for="myDropdown">Quel jeu :</label>
     <select id="myDropdown" class="custom-dropdown">
-        <option value="aaa">AAA</option>
-        <option value="bbb">BBB</option>
-        <option value="ccc">CCC</option>
+        <option value="Flowers">Jeu1</option>
+        <option value="Dekal">Jeu2</option>
+        <option value="Pixies">Jeu3</option>
     </select>
 
       <hr>
@@ -472,7 +470,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
     
     
-        });    
+        })
+  
+  //teste dorpdown
+const maListeDeJeuxSimples = ["Flowers", "Dekal", "Pixies", "Explorers", "Guardians", "Legends"];
+const listeDeroulante = document.getElementById('myDropdown');
+listeDeroulante.innerHTML = '';
+maListeDeJeuxSimples.forEach(jeu => {
+            const option = document.createElement('option'); // Crée un nouvel élément <option>
+            option.value = jeu; // La valeur de l'option (ce qui sera envoyé si le formulaire est soumis)
+            option.textContent = jeu; // Le texte visible dans la liste déroulante
+            listeDeroulante.appendChild(option); // Ajoute l'option au <select>
+        })
+
+ const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Sélectionner un jeu...";
+        defaultOption.selected = true; // Pour la sélectionner par défaut
+        defaultOption.disabled = true; // Pour qu'elle ne soit pas sélectionnable après le choix initial
+        listeDeroulante.prepend(defaultOption);
+  
+  ;    
 
       </script>
     
