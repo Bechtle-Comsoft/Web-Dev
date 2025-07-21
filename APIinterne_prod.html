@@ -27,18 +27,18 @@
     display: flex; /* flexbox pour centrer le contenu */
     align-items: center; /* Centre verticalement */
     justify-content: left; /* Centre a gauche */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère pour un effet de profondeur */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère pr effet de profondeur */
     z-index: 1000; /* Assure que la bannière est au-dessus des autres éléments */
  }
 
  .fixed-banner h1 {
-     margin: 0; /* Supprime la marge par défaut du titre */
+     margin: 0; /* Supprime marge par défaut du titre */
      font-size: 1.5em;
  } 
     /* Styles du logo */
 .logo {
-    height: 42px; /* Hauteur du logo (ajustez si nécessaire) */
-    width: auto; /* La largeur auto pour maintenir les proportions */
+    height: 42px; /* Hauteur logo */
+    width: auto; /* La largeur auto pr maintenir les proportions */
     margin-right: 20px;
 }
 
@@ -52,10 +52,10 @@
  .fixed-sidebar {
      position: fixed; /* Le menu reste fixe par rapport à la fenêtre */
      top: 62px; /* Laisse la place de la barre centrale */
-     left: 0; /* Colle au bord gauche */
-     width: 200px; /* Largeur du menu */
+     left: 0; /* Colle bord gauche */
+     width: 200px; /* Largeur menu */
      height: 100%; /* Prend toute la hauteur de la fenêtre restante */
-     background-color: #666666; /* Couleur de fond */
+     background-color: #666666;
      padding: 20px;
      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
      z-index: 999; /* Moins que la bannière si vous les combinez */
@@ -83,7 +83,7 @@
  }
 
  .main-content {
-     margin-left: 220px; /* Décale le contenu principal pour laisser de la place au menu de gauche */
+     margin-left: 220px; /* Décale contenu principal pour laisser de la place au menu de gauche */
      padding: 20px;
      flex-grow: 1; /* Permet au contenu de prendre l'espace restant */
  }
@@ -91,7 +91,7 @@
  /* Media Query pour la responsivité */
  @media (max-width: 768px) {
      .fixed-sidebar {
-         display: none; /* Cache le menu si la largeur de l'écran est inférieure ou égale à 768px */
+         display: none; /* Cache le menu si largeur de l'écran est <= à 768px */
      }
 
      .main-content {
@@ -99,12 +99,10 @@
      }
  }
 
- /* FIN Menu DE GAUCHE */
-
-
+ /* FIN Menu GAUCHE */
         button {
-            background-color: #4CAF50; /* Couleur de fond verte */
-            color: white; /* Texte blanc */
+            background-color: #4CAF50; 
+            color: white; /* Texte */
             padding: 15px 30px; /* Espacement intérieur */
             border: none; /* Pas de bordure */
             border-radius: 8px; /* Bords arrondis */
@@ -172,7 +170,6 @@
             /*Inclut le padding et la bordure dans la largeur/hauteur */
         }
 
-
         /* LE DROPDOWN MENU*/
       h4 {
     color: #333;
@@ -214,7 +211,6 @@ label {
     padding-right: 30px; /* Make space for the custom arrow */
 }
 
-
 /* Styling for when the dropdown is hovered */
 .custom-dropdown:hover {
     border-color: #999;
@@ -249,7 +245,6 @@ label {
    <h1>Ma Bannière Fixe - Titre</h1>
  </div>
 
-
 <div class="main-layout">
     <div class="fixed-sidebar">
         <nav>
@@ -277,7 +272,7 @@ label {
         
          <div class="containerMid">            
                <div class="item2" > 
-                <h12> Score de Mr B</h12>
+                <h12> jeu pre de Mr B</h12>
                 <div id="result5">TODO Api authent + extract sur autre base de doonnees les resultats</div>
              </div>    
            <div class="item2"> 
@@ -368,13 +363,11 @@ label {
 
 //TESSSSSSSSSSSST
 async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
-
             const data = {              
                     Jeu: jeuCall,
                     Emprunt: yesOrno,
                     code: 1               
             };
-
             try {
                 const response = await fetch(urlJeu, {
                     method: 'POST',
@@ -401,7 +394,6 @@ console.log("APRES");
             }
         }
 
-
  async function resetData(affich1,affich2,affich3) {
             document.getElementById(affich1).innerText = 'Reset';
             document.getElementById(affich2).innerText = 'Reset.';
@@ -412,24 +404,12 @@ console.log("APRES");
   console.log(test2);
             document.getElementById(affich3).innerText = test2;
         }
-
-
+ 
        function displayData(selectorCSS, data) {
             const element = document.querySelector(selectorCSS);
             if (element) {
-                // Vous pouvez adapter ce formatage selon la structure de vos données
-            // if (data && typeof data === 'object' && data.Thème) {
-            // element.textContent = data.Thème;
-             
                 element.textContent = JSON.stringify(data, null, 2);
-             
-             
-                // Exemple pour des données structurées:
-// if (data && typeof data === 'object' && data.Thème) {
-                // element.innerHTML = `<h2>${data.title}</h2><p>${data.description || 'Pas de description.'}</p>`;
-              // } else {
-            // element.textContent = JSON.stringify(data, null, 2);
-      // }
+            
             } else {
                 console.error(`Erreur: L'élément avec le sélecteur "${selectorCSS}" est introuvable.`);
             }
@@ -452,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (myButton) {
                 myButton.addEventListener('click', async () => {
                     try {                                               
-           // const data = await recupData(apiUrl,jeuChoisi);
+          
                       const champJeu2 = document.getElementById('Saisie_Jeu').value.toString(); //gerer le caz vide
                       const data = await recupData2(apiUrl,champJeu2);
                         displayData(targetDiv, data);
@@ -479,13 +459,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayData(bouton2Div, { error: `Impossible probleme butto2n}` });
             }
  
+ //je dois creer une requete GET pr lister tout et pas POST 
+ //car un Get doit avoir seulement donnee dans l'URL
+ 
+ 
  if (empruntButton) {
                 empruntButton.addEventListener('click', async () => {
                  const listeDeroulante2 = document.getElementById('myDropdown');
                       const jeuSelect = listeDeroulante2.value;
                     try {                                               
                         const data = await recupData2(apiUrl,jeuSelect,'yes');
-                        displayData(ecranJeuDiv, 'back a finir mais sinn ok');
+                 //       displayData(ecranJeuDiv, 'back a finir mais sinn ok');
+                     displayData(ecranJeuDiv, data);
                     } catch (error) {
                         displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
                     }
@@ -501,7 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
                       const jeuSelect = listeDeroulante3.value;
                     try {                                               
                         const data = await recupData2(apiUrl,jeuSelect,'no');
-                        displayData(ecranJeuDiv, 'back a finir mais sinn renduuuu');
+                       // displayData(ecranJeuDiv, 'back a finir mais sinn renduuuu');
+                     displayData(ecranJeuDiv, data);
                     } catch (error) {
                         displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
                     }
@@ -526,15 +512,8 @@ if (infoButton) {
             } else {
                 console.error("Le bouton avec l'ID 'myButt' est introuvable.");
                 displayData(ecranJeuDiv, { error: `Impossible probleme button}` });
-            }
-	
+            }	
         })
- 
- 
-  
- 
- 
- 
  
   //teste dorpdown
 const maListeDeJeuxSimples = ["Flowers", "Dekal", "Pixies", "Explorers", "Guardians", "Legends"];
@@ -574,8 +553,7 @@ async function peuplerListeDeroulante() {
 
 peuplerListeDeroulante();
   
-  ;    
-
+  ;
       </script>
     
        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -636,13 +614,8 @@ peuplerListeDeroulante();
         chart2.draw(data2, options2);     
           
       }
-    
-    
-    
-      
+         
 
     </script>
-
-
   </body>
 </html>
