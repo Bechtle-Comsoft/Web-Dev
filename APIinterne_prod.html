@@ -330,37 +330,6 @@ label {
 </div> 
       
  <script>
-         
-      //logique data
-      async function recupData(urlJeu,jeuCall="/listerTout") {
-            const data = {              
-                    Jeu: jeuCall,
-                    code: 1               
-            };
-            try {
-                const response = await fetch(urlJeu, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                        //TODO ajouter securite header et token
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
-                    return 'errooor';
-                }
-
-                const responseData = await response.json();
-
-                return JSON.stringify(responseData, null, 2);
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données:', error);
-                return 'Erreur lors de la récupération des données.';
-            }
-        }
-
 //TESSSSSSSSSSSST
 async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
             const data = {              
@@ -426,9 +395,75 @@ document.addEventListener('DOMContentLoaded', () => {
             const bouton2Div = '#result2'; 
             const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, 
             
-        peuplerListeDeroulante();
   
 //on peut simplifier encore lencode
+ // tezter un
+ 
+ /* a check
+ class BoutonAction {
+    constructor(buttonId, dropdownId, apiHandler, displayDiv, yesOrno = 'none') {
+        this.button = document.getElementById(buttonId);
+        this.dropdownId = dropdownId;
+        this.apiHandler = apiHandler; //recupData2??
+        this.displayDiv = displayDiv;
+        this.customParam = customParam;
+
+        this.init();
+    }
+
+    init() {
+        if (this.button) {
+            this.button.addEventListener('click', this.handleClick.bind(this));
+        } else {
+            console.error(`Le bouton avec l'ID '${this.button.id}' est introuvable.`);
+            this.displayError({ error: `Impossible de trouver le bouton avec l'ID '${this.button.id}'` });
+        }
+    }
+
+    async handleClick() {
+        const listeDeroulante = document.getElementById(this.dropdownId);
+        const jeuSelect = listeDeroulante ? listeDeroulante.value : null;
+
+        if (!jeuSelect) {
+            this.displayError({ error: `Aucune sélection trouvée pour la liste déroulante avec l'ID '${this.dropdownId}'` });
+            return;
+        }
+
+        try {
+            const data = await this.apiHandler(apiUrl, jeuSelect, this.customParam);
+            this.displayData(data);
+        } catch (error) {
+            this.displayError({ error: `Impossible de charger les données: ${error.message}` });
+        }
+    }
+
+    // --- MODIFICATION ICI : Utilisation de innerText ---
+    displayData(data) {
+        if (this.displayDiv) {
+            // Affichage des données brutes au format JSON stringifié
+            // Note : JSON.stringify convertit l'objet en une chaîne de caractères
+            this.displayDiv.innerText = JSON.stringify(data, null, 2);
+        } else {
+            console.error("L'élément d'affichage (displayDiv) est introuvable.");
+        }
+    }
+
+    // --- MODIFICATION ICI : Utilisation de innerText ---
+    displayError(errorData) {
+        if (this.displayDiv) {
+            // Affiche le message d'erreur en texte brut
+            this.displayDiv.innerText = `Erreur: ${errorData.error}`;
+            // Vous pouvez ajouter un style via JS si vous voulez de la couleur, par exemple:
+            // this.displayDiv.style.color = 'red';
+        } else {
+            console.error("L'élément d'affichage (displayDiv) est introuvable pour afficher l'erreur.");
+        }
+    }
+}
+
+ 
+ 
+*/
             if (myButton) {
                 myButton.addEventListener('click', async () => {
                     try {                                               
