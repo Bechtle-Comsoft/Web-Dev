@@ -184,7 +184,7 @@ label {
     color: #555;
 }
 
-/* Styling for the select element itself */
+
 .custom-dropdown {
     width: 200px; /* Set a fixed width */
     padding: 10px;
@@ -201,7 +201,7 @@ label {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
 }
 
-/* Add a custom arrow (optional, as appearance: none removes default) */
+/* Add custom arrow (optional, as appearance: none removes default) */
 /* This is a common technique to create a custom dropdown arrow */
 .custom-dropdown {
     background-image: url('data:image/svg+xml;utf8,<svg fill="#666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
@@ -211,7 +211,6 @@ label {
     padding-right: 30px; /* Make space for the custom arrow */
 }
 
-/* Styling for when the dropdown is hovered */
 .custom-dropdown:hover {
     border-color: #999;
 }
@@ -261,8 +260,7 @@ label {
             </ul>
           
         </nav>
-    </div>
-  
+    </div>  
   
 <div class="main-content">
   
@@ -382,10 +380,12 @@ function displayData(selectorCSS, data) {
  
  
 class BoutonAction {
-    constructor(boutonID,divAssociee,apiUrl){
+    constructor(boutonID,divAssociee,apiUrl,listederoulante = 'undefined',emprunt = 'none'){
      this.bouton = document.getElementById(boutonID);
      this.boutonDiv = divAssociee;
      this.apiUrl = apiUrl;
+     this.listeDeroulante = document.getElementById(listederoulante);
+     this.isEmprunte = emprunt;
      this.init();     
     }
  
@@ -399,18 +399,34 @@ class BoutonAction {
  
     async handleClick() {
         try {                                               
-           const data = await recupData2(this.apiUrl,'/listerTout');
-           displayData(this.boutonDiv, data);
-           } catch (error) {
+           if (this.listeDeroulante === null ) { // Utilisation de '===' pour une comparaison stricte
+               const data = await recupData2(this.apiUrl,'/listerTout',this.isEmprunte);
+               displayData(this.boutonDiv, data);
+           }else{ 
+// gerer info  
+              if(this.isEmprunte != 'none'){           	
+               const data = await recupData2(this.apiUrl,this.listeDeroulante.value,this.isEmprunte);
+               displayData(this.boutonDiv, data);
+               }else{
+               	const data = await recupData2(this.apiUrl,this.listeDeroulante.value,this.isEmprunte);
+               displayData(this.boutonDiv, data);
+               }
+           	
+           	
+           }      	
+        } catch (error) {
            displayData(boutonDiv, { error: `Impossible de charger les données: ${error.message}` });
-           }
-    }
-    
+      }
+    }    
 }
 //class butoon
-const listerToutBouton = new BoutonAction('Bouton2','#result2','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');          
- 
+     
+ const listerToutBouton = new BoutonAction('Bouton2','#result2','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');          
+const infoBouton = new BoutonAction('infoButton','#ecranJeu','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','myDropdown');          
+const empruntBouton = new BoutonAction('empruntButton','#ecranJeu','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','myDropdown','yes');          
+const rendBouton = new BoutonAction('rendButton','#ecranJeu','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','myDropdown','no');          
 
+//peuplerListeDeroulante();
  
  //logique de gestion des events hors bouton
 document.addEventListener('DOMContentLoaded', () => {
@@ -440,75 +456,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }            
  
  
- /*         
-    if (myButton2) {
-        myButton2.addEventListener('click', async () => {
-        try {                                               
-           const data = await recupData2(apiUrl,'/listerTout');
-           displayData(bouton2Div, data);
-           } catch (error) {
-           displayData(bouton2Div, { error: `Impossible de charger les données: ${error.message}` });
-           }
-        });
-    } else {
-          console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
-          displayData(bouton2Div, { error: `Impossible probleme butto2n}` });
-    }
- 
- 
- 
- */
- 
  //je dois creer une requete GET pr lister tout et pas POST 
  //car un Get doit avoir seulement donnee dans l'URL
-    if (empruntButton) {
-       empruntButton.addEventListener('click', async () => {
-          const listeDeroulante2 = document.getElementById('myDropdown');
-          const jeuSelect = listeDeroulante2.value;
-          try {                                               
-             const data = await recupData2(apiUrl,jeuSelect,'yes');
-             displayData(ecranJeuDiv, data);
-             } catch (error) {
-             displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
-             }
-       });
-       } else {
-           console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
-           displayData(ecranJeuDiv, { error: `Impossible probleme butto2n}` });
-       }
-    
-    if (rendButton) {
-       rendButton.addEventListener('click', async () => {
-           const listeDeroulante3= document.getElementById('myDropdown');
-           const jeuSelect = listeDeroulante3.value;
-           try {                                               
-               const data = await recupData2(apiUrl,jeuSelect,'no');
-               displayData(ecranJeuDiv, data);
-               } catch (error) {
-               displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
-               }
-           });
-     } else {
-           console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
-           displayData(ecranJeuDiv, { error: `Impossible probleme butto2n}` });
-     }
-    
-if (infoButton) {
-                infoButton.addEventListener('click', async () => {
-                    try {                                               
-			const listeDeroulante = document.getElementById('myDropdown');
-                      const jeuSelect = listeDeroulante.value;
-                      const data = await recupData2(apiUrl,jeuSelect);
-                        displayData(ecranJeuDiv, data);
-                    } catch (error) {
-                        displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
-                    }
-                });
-            } else {
-                console.error("Le bouton avec l'ID 'myButt' est introuvable.");
-                displayData(ecranJeuDiv, { error: `Impossible probleme button}` });
-            }	
-        })
+	
+	peuplerListeDeroulante();
+  })
  
   //teste dorpdown
 const maListeDeJeuxSimples = ["Flowers", "Dekal", "Pixies", "Explorers", "Guardians", "Legends"];
@@ -546,7 +498,7 @@ async function peuplerListeDeroulante() {
         }
 }
 
-peuplerListeDeroulante();
+//peuplerListeDeroulante();
    
       </script>
     
@@ -585,7 +537,7 @@ peuplerListeDeroulante();
       //2eme chart
      var data2 = google.visualization.arrayToDataTable([
           ['Type de jeu', 'Nb de parties'],
-          ['Cartes', 11],
+           ['Cartes', 11],
           ['Reflexion', 2],
           ['Strategie', 2],
           ['Aleatoire', 4],
