@@ -330,7 +330,7 @@ label {
 </div> 
       
  <script>
-//TESSSSSSSSSSSST
+//fonctions
 async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
             const data = {              
                     Jeu: jeuCall,
@@ -359,22 +359,18 @@ console.log("APRES");
                 return responseData
             } catch (error) {
                 console.error('Erreur lors de la récupération des données:', error);
-                return 'Erreur lors de la récupération des données.';
+                return 'Erreur lors de la récupération des données fct recupData2.';
             }
         }
 
  async function resetData(affich1,affich2,affich3) {
             document.getElementById(affich1).innerText = 'Reset';
             document.getElementById(affich2).innerText = 'Reset.';
-    // const champJeu = JSON.stringify(document.getElementById('Saisie_Jeu')); //gerer le caz vide
-     const champJeu = document.getElementById('Saisie_Jeu').value;
-  const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
-  const test2 = test[0].Jeu[3];
-  console.log(test2);
-            document.getElementById(affich3).innerText = test2;
+            const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
+            document.getElementById(affich3).innerText = test[0].Jeu[3];
         }
  
-       function displayData(selectorCSS, data) {
+function displayData(selectorCSS, data) {
             const element = document.querySelector(selectorCSS);
             if (element) {
                 element.textContent = JSON.stringify(data, null, 2);
@@ -383,156 +379,120 @@ console.log("APRES");
                 console.error(`Erreur: L'élément avec le sélecteur "${selectorCSS}" est introuvable.`);
             }
         }
-    
- //logique de gestion des events
-document.addEventListener('DOMContentLoaded', () => {
-            const myButton = document.getElementById('myButt');
-            const myButton2 = document.getElementById('Bouton2');
-	    const infoButton = document.getElementById('infoButton');
-	    const ecranJeuDiv = '#ecranJeu';
-            const targetDiv = '#result1'; // Le sélecteur de l'élément où afficher le résultat
-            const apiUrl = 'http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519';
-            const bouton2Div = '#result2'; 
-            const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, 
-            
-  
-//on peut simplifier encore lencode
- // tezter un
  
- /* a check
- class BoutonAction {
-    constructor(buttonId, dropdownId, apiHandler, displayDiv, yesOrno = 'none') {
-        this.button = document.getElementById(buttonId);
-        this.dropdownId = dropdownId;
-        this.apiHandler = apiHandler; //recupData2??
-        this.displayDiv = displayDiv;
-        this.customParam = customParam;
-
-        this.init();
+ 
+class BoutonAction {
+    constructor(boutonID,divAssociee,apiUrl){
+     this.bouton = document.getElementById(boutonID);
+     this.boutonDiv = divAssociee;
+     this.apiUrl = apiUrl;
+     this.init();     
     }
-
+ 
     init() {
-        if (this.button) {
-            this.button.addEventListener('click', this.handleClick.bind(this));
+        if (this.bouton) {
+            this.bouton.addEventListener('click', this.handleClick.bind(this));
         } else {
-            console.error(`Le bouton avec l'ID '${this.button.id}' est introuvable.`);
-            this.displayError({ error: `Impossible de trouver le bouton avec l'ID '${this.button.id}'` });
+            console.error(`Le bouton avec l'ID '${boutonID}' est introuvable.`);
         }
     }
-
+ 
     async handleClick() {
-        const listeDeroulante = document.getElementById(this.dropdownId);
-        const jeuSelect = listeDeroulante ? listeDeroulante.value : null;
-
-        if (!jeuSelect) {
-            this.displayError({ error: `Aucune sélection trouvée pour la liste déroulante avec l'ID '${this.dropdownId}'` });
-            return;
-        }
-
-        try {
-            const data = await this.apiHandler(apiUrl, jeuSelect, this.customParam);
-            this.displayData(data);
-        } catch (error) {
-            this.displayError({ error: `Impossible de charger les données: ${error.message}` });
-        }
+        try {                                               
+           const data = await recupData2(this.apiUrl,'/listerTout');
+           displayData(this.boutonDiv, data);
+           } catch (error) {
+           displayData(boutonDiv, { error: `Impossible de charger les données: ${error.message}` });
+           }
     }
-
-    // --- MODIFICATION ICI : Utilisation de innerText ---
-    displayData(data) {
-        if (this.displayDiv) {
-            // Affichage des données brutes au format JSON stringifié
-            // Note : JSON.stringify convertit l'objet en une chaîne de caractères
-            this.displayDiv.innerText = JSON.stringify(data, null, 2);
-        } else {
-            console.error("L'élément d'affichage (displayDiv) est introuvable.");
-        }
-    }
-
-    // --- MODIFICATION ICI : Utilisation de innerText ---
-    displayError(errorData) {
-        if (this.displayDiv) {
-            // Affiche le message d'erreur en texte brut
-            this.displayDiv.innerText = `Erreur: ${errorData.error}`;
-            // Vous pouvez ajouter un style via JS si vous voulez de la couleur, par exemple:
-            // this.displayDiv.style.color = 'red';
-        } else {
-            console.error("L'élément d'affichage (displayDiv) est introuvable pour afficher l'erreur.");
-        }
-    }
+    
 }
+//class butoon
+const listerToutBouton = new BoutonAction('Bouton2','#result2','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');          
+ 
 
  
+ //logique de gestion des events hors bouton
+document.addEventListener('DOMContentLoaded', () => {
+    const myButton = document.getElementById('myButt');
+    const myButton2 = document.getElementById('Bouton2');
+    const bouton2Div = '#result2'; 
+    const infoButton = document.getElementById('infoButton');
+	    const ecranJeuDiv = '#ecranJeu';
+    const targetDiv = '#result1'; // Le sélecteur de l'élément où afficher le résultat
+    const apiUrl = 'http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519';
+    
+    const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, 
+
+    if (myButton) {
+        myButton.addEventListener('click', async () => {
+            try {                                               
+                const champJeu2 = document.getElementById('Saisie_Jeu').value.toString(); //gerer le caz vide
+                const data = await recupData2(apiUrl,champJeu2);
+                displayData(targetDiv, data);
+                } catch (error) {
+                displayData(targetDiv, { error: `Impossible de charger les données: ${error.message}` });
+                }
+        });
+    } else {
+        console.error("Le bouton avec l'ID 'myButt' est introuvable.");
+        displayData(targetDiv, { error: `Impossible probleme button}` });
+    }            
  
-*/
-            if (myButton) {
-                myButton.addEventListener('click', async () => {
-                    try {                                               
-          
-                      const champJeu2 = document.getElementById('Saisie_Jeu').value.toString(); //gerer le caz vide
-                      const data = await recupData2(apiUrl,champJeu2);
-                        displayData(targetDiv, data);
-                    } catch (error) {
-                        displayData(targetDiv, { error: `Impossible de charger les données: ${error.message}` });
-                    }
-                });
-            } else {
-                console.error("Le bouton avec l'ID 'myButt' est introuvable.");
-                displayData(targetDiv, { error: `Impossible probleme button}` });
-            }            
-          
-            if (myButton2) {
-                myButton2.addEventListener('click', async () => {
-                    try {                                               
-                        const data = await recupData2(apiUrl,'/listerTout');
-                        displayData(bouton2Div, data);
-                    } catch (error) {
-                        displayData(bouton2Div, { error: `Impossible de charger les données: ${error.message}` });
-                    }
-                });
-            } else {
-                console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
-                displayData(bouton2Div, { error: `Impossible probleme butto2n}` });
-            }
+ 
+ /*         
+    if (myButton2) {
+        myButton2.addEventListener('click', async () => {
+        try {                                               
+           const data = await recupData2(apiUrl,'/listerTout');
+           displayData(bouton2Div, data);
+           } catch (error) {
+           displayData(bouton2Div, { error: `Impossible de charger les données: ${error.message}` });
+           }
+        });
+    } else {
+          console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
+          displayData(bouton2Div, { error: `Impossible probleme butto2n}` });
+    }
+ 
+ 
+ 
+ */
  
  //je dois creer une requete GET pr lister tout et pas POST 
  //car un Get doit avoir seulement donnee dans l'URL
- 
- 
- if (empruntButton) {
-                empruntButton.addEventListener('click', async () => {
-                 const listeDeroulante2 = document.getElementById('myDropdown');
-                      const jeuSelect = listeDeroulante2.value;
-                    try {                                               
-                        const data = await recupData2(apiUrl,jeuSelect,'yes');
-                 //       displayData(ecranJeuDiv, 'back a finir mais sinn ok');
-                     displayData(ecranJeuDiv, data);
-                    } catch (error) {
-                        displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
-                    }
-                });
-            } else {
-                console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
-                displayData(ecranJeuDiv, { error: `Impossible probleme butto2n}` });
-            }
+    if (empruntButton) {
+       empruntButton.addEventListener('click', async () => {
+          const listeDeroulante2 = document.getElementById('myDropdown');
+          const jeuSelect = listeDeroulante2.value;
+          try {                                               
+             const data = await recupData2(apiUrl,jeuSelect,'yes');
+             displayData(ecranJeuDiv, data);
+             } catch (error) {
+             displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
+             }
+       });
+       } else {
+           console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
+           displayData(ecranJeuDiv, { error: `Impossible probleme butto2n}` });
+       }
     
- if (rendButton) {
-                rendButton.addEventListener('click', async () => {
-                 const listeDeroulante3= document.getElementById('myDropdown');
-                      const jeuSelect = listeDeroulante3.value;
-                    try {                                               
-                        const data = await recupData2(apiUrl,jeuSelect,'no');
-                       // displayData(ecranJeuDiv, 'back a finir mais sinn renduuuu');
-                     displayData(ecranJeuDiv, data);
-                    } catch (error) {
-                        displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
-                    }
-                });
-            } else {
-                console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
-                displayData(ecranJeuDiv, { error: `Impossible probleme butto2n}` });
-            }
+    if (rendButton) {
+       rendButton.addEventListener('click', async () => {
+           const listeDeroulante3= document.getElementById('myDropdown');
+           const jeuSelect = listeDeroulante3.value;
+           try {                                               
+               const data = await recupData2(apiUrl,jeuSelect,'no');
+               displayData(ecranJeuDiv, data);
+               } catch (error) {
+               displayData(ecranJeuDiv, { error: `Impossible de charger les données: ${error.message}` });
+               }
+           });
+     } else {
+           console.error("Le bouton avec l'ID 'mbou2t' est introuvable.");
+           displayData(ecranJeuDiv, { error: `Impossible probleme butto2n}` });
+     }
     
-
 if (infoButton) {
                 infoButton.addEventListener('click', async () => {
                     try {                                               
@@ -587,8 +547,7 @@ async function peuplerListeDeroulante() {
 }
 
 peuplerListeDeroulante();
-  
-  ;
+   
       </script>
     
        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
