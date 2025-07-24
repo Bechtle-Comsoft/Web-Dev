@@ -286,31 +286,8 @@ label {
   
    <div class="containerMid">
        <div class="item"> 
-          <h1> Recherche Jeu </h1>
-          <button id ="myButt" >Cliquez-moi !</button>
-          <div id="result1">Résultat de l'API1 apparaîtra ici.</div>
-       </div>
-      
-     <div class="item">          
-         <h2> Lister Jeu </h2>
-         <button id ="Bouton2" >ListAll !</button>
-         <div id="result2">Résultat de l'API2 apparaîtra ici.</div>
-     </div>
-  </div>   
-      
-    <hr>  
-    <h2> TEST bouto2n </h2>
-    <button id ="RESET" onclick="resetData('result1','result2','result3')">Reset !</button>
-    
-    <hr>
-    
-    <div class="containerMid">
-       <input type="string" name="Jeu" id="Saisie_Jeu" placeholder="Jeu à choisir"/>
-       <div id="result3">Résultat du champ apparaîtra ici.</div>
-    </div>  
-    <hr>
-    
-    <h4>My Dropdown List</h4>
+        
+          <h4>My Dropdown List</h4>
 
     <label for="myDropdown">Quel jeu :</label>
     <select id="myDropdown" class="custom-dropdown">
@@ -323,8 +300,28 @@ label {
  <button id="empruntButton">Emprunte la sélection</button>
  <button id="rendButton">Rend la sélection</button>
 	<div id="ecranJeu">INFO ICI</div>
-	
-      <hr>
+        
+       </div>
+      
+     <div class="item">          
+         <h2> Lister Jeu </h2>
+         <button id ="Bouton2" >ListAll !</button>
+         <div id="result2">Résultat de l'API2 apparaîtra ici.</div>
+     </div>
+  </div>   
+      
+    <hr>  
+    <h2> Saisie Champ bouto2n </h2>
+    <button id ="RESET" onclick="resetData('result2','result3')">Reset !</button>
+    
+    <hr>
+    
+    <div class="containerMid">
+       <input type="string" name="Jeu" id="Saisie_Jeu" placeholder="Jeu à choisir"/>
+       <div id="result3">Résultat du champ apparaîtra ici!!!!.</div>
+    </div>  
+    <hr>
+   
 </div> 
       
  <script>
@@ -361,11 +358,11 @@ console.log("APRES");
             }
         }
 
- async function resetData(affich1,affich2,affich3) {
+ async function resetData(affich1,affich2) {
             document.getElementById(affich1).innerText = 'Reset';
-            document.getElementById(affich2).innerText = 'Reset.';
+           
             const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
-            document.getElementById(affich3).innerText = test[0].Jeu[3];
+            document.getElementById(affich2).innerText = test[0].Jeu[3];
         }
  
 function displayData(selectorCSS, data) {
@@ -402,16 +399,9 @@ class BoutonAction {
            if (this.listeDeroulante === null ) { // Utilisation de '===' pour une comparaison stricte
                const data = await recupData2(this.apiUrl,'/listerTout',this.isEmprunte);
                displayData(this.boutonDiv, data);
-           }else{ 
-// gerer info  
-              if(this.isEmprunte != 'none'){           	
-               const data = await recupData2(this.apiUrl,this.listeDeroulante.value,this.isEmprunte);
-               displayData(this.boutonDiv, data);
-               }else{
+           }else{  
                	const data = await recupData2(this.apiUrl,this.listeDeroulante.value,this.isEmprunte);
                displayData(this.boutonDiv, data);
-               }
-           	
            	
            }      	
         } catch (error) {
@@ -421,7 +411,7 @@ class BoutonAction {
 }
 //class butoon
      
- const listerToutBouton = new BoutonAction('Bouton2','#result2','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');          
+const listerToutBouton = new BoutonAction('Bouton2','#result2','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');          
 const infoBouton = new BoutonAction('infoButton','#ecranJeu','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','myDropdown');          
 const empruntBouton = new BoutonAction('empruntButton','#ecranJeu','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','myDropdown','yes');          
 const rendBouton = new BoutonAction('rendButton','#ecranJeu','http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519','myDropdown','no');          
@@ -431,16 +421,10 @@ const rendBouton = new BoutonAction('rendButton','#ecranJeu','http://172.16.254.
  //logique de gestion des events hors bouton
 document.addEventListener('DOMContentLoaded', () => {
     const myButton = document.getElementById('myButt');
-    const myButton2 = document.getElementById('Bouton2');
-    const bouton2Div = '#result2'; 
-    const infoButton = document.getElementById('infoButton');
-	    const ecranJeuDiv = '#ecranJeu';
-    const targetDiv = '#result1'; // Le sélecteur de l'élément où afficher le résultat
+    const targetDiv = '#result1';
     const apiUrl = 'http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519';
     
-    const jeuChoisi = 'Flowers';// Le paramètre 'Flowers' est-il nécessaire pour l'API, 
-
-    if (myButton) {
+    if (myButton) {//bouton qui recup la saisie ligne
         myButton.addEventListener('click', async () => {
             try {                                               
                 const champJeu2 = document.getElementById('Saisie_Jeu').value.toString(); //gerer le caz vide
@@ -455,8 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayData(targetDiv, { error: `Impossible probleme button}` });
     }            
  
- 
- //je dois creer une requete GET pr lister tout et pas POST 
+ //je dois ?? creer une requete GET pr lister tout et pas POST 
  //car un Get doit avoir seulement donnee dans l'URL
 	
 	peuplerListeDeroulante();
@@ -494,7 +477,7 @@ async function peuplerListeDeroulante() {
         	defaultOption.disabled = true; // Pour qu'elle ne soit pas sélectionnable après le choix initial
         	listeDeroulante.prepend(defaultOption);
                 } catch (error) {
-                console.log("aaaaaaaaaaaaaaaaaaaaa");
+                console.log("aaaaaaa(€(€)39€_!4)€8aaaaaaaaaaaaaa");
         }
 }
 
