@@ -235,54 +235,53 @@ label {
 }
 /*fin dropdown*/
     
-    </style>
+</style>
 
-  </head>
-  <body>
+</head>
+<body>
  <div class="fixed-banner">
     <img src="https://cdn.leonardo.ai/users/65caef68-b2fc-4b3c-aea2-9b83729fe324/generations/3ff4bb09-3030-4371-ac86-1ab69946b291/AlbedoBase_XL_Professional_graphic_design_2D_illustration_Crea_3.jpg" alt="Mon image de test" class="logo" />
-   <h1>Ma Bannière Fixe - Titre</h1>
+    <h1>Ma Bannière Fixe - Titre</h1>
  </div>
 
-<div class="main-layout">
+  <div class="main-layout">
     <div class="fixed-sidebar">
         <nav>
             <ul>
-                <li><a href="www.google.com">Lien 1google</a></li>
-                <li><a href="#">Lien 2</a></li>
+                <li><a href="ApiProd.html">Main Menu</a></li>
+                <li><a href="test.html">Registration</a></li>
                 <li><a href="#">Lien 3</a></li>
                 <li><a href="#">Lien 4</a></li>
             </ul>
             <hr>
             <ul>
-                <li><a href="www.google.com">Lien 5e</a></li>
+                <li><a href="www.google.com">Lien google</a></li>
                 <li><a href="#">Lien 62</a></li>
             </ul>
           
         </nav>
     </div>  
   
-<div class="main-content">
-  
-  <div class="containerMid">
+  <div class="main-content">  
    
-       <div class="item"> 
-        
+    <div class="containerMid"> 
+     
+       <div class="item">        
          <div class="containerMid">            
-               <div class="item2" > 
-                <h12> jeu pre de Mr B</h12>
-                <div id="result5">TODO Api authent + extract sur autre base de doonnees les resultats</div>
-             </div>    
+           <div class="item2" > 
+             <h12> jeu pre de Mr B</h12>
+             <div id="result5">TODO Api authent + extract sur autre base de doonnees les resultats</div>
+           </div>    
            <div class="item2"> 
-               <div id="chart_div" ></div>
-             </div> 
-          </div>
-       </div>
-      
-     <div class="item">          
-          <div id="donutchart" ></div>
+             <div id="chart_div" ></div>
+           </div> 
+        </div>
      </div>
-  </div>   
+      
+       <div class="item">          
+          <div id="donutchart" ></div>
+       </div>
+    </div>   
   
    <div class="containerMid">
        <div class="item"> 
@@ -312,7 +311,7 @@ label {
       
     <hr>  
     <h2> Saisie Champ bouto2n </h2>
-    <button id ="RESET" onclick="resetData('result2','result3')">Reset !</button>
+    <button id ="RESET" onclick="resetData('result2','ecranJeu')">Reset !</button>
     
     <hr>
     
@@ -360,9 +359,9 @@ console.log("APRES");
 
  async function resetData(affich1,affich2) {
             document.getElementById(affich1).innerText = 'Reset';
-           
-            const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
-            document.getElementById(affich2).innerText = test[0].Jeu[3];
+            document.getElementById(affich2).innerText = 'Reset';
+         //   const test = await recupData2('http://172.16.254.30:5678/webhook/5a5e1bde-ac93-4a94-838f-9aa7ee57e519');
+        //    document.getElementById(affich2).innerText = test[0].Jeu[3];
         }
  
 function displayData(selectorCSS, data) {
