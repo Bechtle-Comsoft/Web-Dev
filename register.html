@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    
+    <title>Simple registration form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      }
+      body, div, h1, form, input, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      }
+      h1 {
+      padding: 10px 0;
+      font-size: 32px;
+      font-weight: 300;
+      text-align: center;
+      }
+      p {
+      font-size: 12px;
+      }
+      hr {
+      color: #a9a9a9;
+      opacity: 0.3;
+      }
+      .main-block {
+      max-width: 340px; 
+      min-height: 460px; 
+      padding: 10px 0;
+      margin: auto;
+      border-radius: 5px; 
+      border: solid 1px #ccc;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+      background: #ebebeb; 
+      }
+      form {
+      margin: 0 30px;
+      }
+      .account-type, .gender {
+      margin: 15px 0;
+      }
+      input[type=radio] {
+      display: none;
+      }
+      label#icon {
+      margin: 0;
+      border-radius: 5px 0 0 5px;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      padding-top: 4px;
+      margin-right: 20px;
+      text-indent: 30px;
+      overflow: visible;
+      cursor: pointer;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #1c87c9;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 4px;
+      top: 8px;
+      left: 4px;
+      border: 3px solid #fff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      input[type=text], input[type=password] {
+      width: calc(100% - 57px);
+      height: 36px;
+      margin: 13px 0 0 -5px;
+      padding-left: 10px; 
+      border-radius: 0 5px 5px 0;
+      border: solid 1px #cbc9c9; 
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #fff; 
+      }
+      input[type=password] {
+      margin-bottom: 15px;
+      }
+      #icon {
+      display: inline-block;
+      padding: 9.3px 15px;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #1c87c9;
+      color: #fff;
+      text-align: center;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 100%;
+      padding: 10px 0;
+      margin: 10px auto;
+      border-radius: 5px; 
+      border: none;
+      background: #1c87c9; 
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      }
+      button:hover {
+      background: #26a9e0;
+      }
+    
+      .main-layout {
+     display: flex; /* Utilise Flexbox pour positionner le menu et le contenu */
+     min-height: 100vh; /* S'assure que le conteneur prend au moins toute la hauteur de la vue */
+ }
+
+ .fixed-sidebar {
+     position: fixed; /* Le menu reste fixe par rapport à la fenêtre */
+     top: 62px; /* Laisse la place de la barre centrale */
+     left: 0; /* Colle bord gauche */
+     width: 200px; /* Largeur menu */
+     height: 100%; /* Prend toute la hauteur de la fenêtre restante */
+     background-color: #666666;
+     padding: 20px;
+     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+     z-index: 999; /* Moins que la bannière si vous les combinez */
+ }
+
+ .fixed-sidebar nav ul {
+     list-style: none; /* Supprime les puces des listes */
+     padding: 0;
+ }
+
+ .fixed-sidebar nav ul li {
+     margin-bottom: 10px;
+ }
+
+ .fixed-sidebar nav ul li a {
+     text-decoration: none; /* Supprime le soulignement des liens */
+     color: #333;
+     display: block;
+     padding: 5px 0;
+     transition: color 0.3s ease;
+ }
+
+ .fixed-sidebar nav ul li a:hover {
+     color: #007bff;
+ }
+    
+  .main-content {
+     margin-left: 220px; /* Décale contenu principal pour laisser de la place au menu de gauche */
+     padding: 20px;
+     flex-grow: 1; /* Permet au contenu de prendre l'espace restant */
+ }
+
+ /* Media Query pour la responsivité */
+ @media (max-width: 768px) {
+     .fixed-sidebar {
+         display: none; /* Cache le menu si largeur de l'écran est <= à 768px */
+     }
+
+     .main-content {
+         margin-left: 0; /* Supprime le décalage du contenu principal */
+     }
+ }
+   
+    
+    .fixed-banner {
+     position: fixed; /* La bannière reste fixe par rapport à la fenêtre du navigateur */
+    top: 0; /* Colle la bannière au bord sup */
+    left: 0; /* Colle a gauche */
+    width: 100%;
+    height: 63px; /* Hauteur */
+    background-color: #000; 
+    color: white; /* Couleur du texte */
+    display: flex; /* flexbox pour centrer le contenu */
+    align-items: center; /* Centre verticalement */
+    justify-content: left; /* Centre a gauche */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère pr effet de profondeur */
+    z-index: 1000; /* Assure que la bannière est au-dessus des autres éléments */
+ }
+
+ .fixed-banner h9 {
+     margin: 0;
+     font-size: 1.5em;
+ } 
+    /* Styles du logo */
+.logo {
+    height: 42px; /* Hauteur logo */
+    width: auto; /* La largeur auto pr maintenir les proportions */
+    margin-right: 20px;
+}
+    
+    
+    </style>
+  </head>
+  <body>
+    
+    <div class="fixed-banner">
+    <img src="https://cdn.leonardo.ai/users/65caef68-b2fc-4b3c-aea2-9b83729fe324/generations/3ff4bb09-3030-4371-ac86-1ab69946b291/AlbedoBase_XL_Professional_graphic_design_2D_illustration_Crea_3.jpg" alt="Mon image de test" class="logo" />
+    <h9>Ma Bannière Fixe - Titre</h9>
+ </div>
+
+  <div class="main-layout">
+    <div class="fixed-sidebar">
+        <nav>
+            <ul>
+                <li><a href="ApiProd.html">Main Menu</a></li>
+                <li><a href="test.html">Registration</a></li>
+                <li><a href="#">Lien 3</a></li>
+                <li><a href="#">Lien 4</a></li>
+            </ul>
+            <hr>
+            <ul>
+                <li><a href="www.google.com">Lien google</a></li>
+                <li><a href="#">Lien 62</a></li>
+            </ul>
+          
+        </nav>
+    </div>  
+    
+    
+    
+    
+    
+    
+    <div class="main-block">
+      <h1>Registration</h1>
+      <form action="/">
+        <hr>
+        <div class="account-type">
+          <input type="radio" value="none" id="radioOne" name="account" checked/>
+          <label for="radioOne" class="radio">Personal</label>
+          <input type="radio" value="none" id="radioTwo" name="account" />
+          <label for="radioTwo" class="radio">Company</label>
+        </div>
+        <hr>
+        <label id="icon" for="name"><i class="fas fa-envelope"></i></label>
+        <input type="text" name="name" id="name" placeholder="Email" required/>
+        <label id="icon" for="name"><i class="fas fa-user"></i></label>
+        <input type="text" name="name" id="name" placeholder="Name" required/>
+        <label id="icon" for="name"><i class="fas fa-unlock-alt"></i></label>
+        <input type="password" name="name" id="name" placeholder="Password" required/>
+        <hr>
+        <div class="gender">
+          <input type="radio" value="none" id="male" name="gender" checked/>
+          <label for="male" class="radio">Male</label>
+          <input type="radio" value="none" id="female" name="gender" />
+          <label for="female" class="radio">Female</label>
+        </div>
+        <hr>
+        <div class="btn-block" >
+          <p>By clicking Register, you agree on our <a href="https://www.websitepolicies.com/blog/sample-privacy-policy-template">Privacy Policy for Azurealpes</a>.</p>
+          <button type="submit" href="/" onclick='apiCall("user","name")'>Submit</button>
+        </div>
+      </form>
+    </div>
+    
+    <script>
+    
+    const urlIdent = 'https://test.com'
+    
+    async function apiCall(data1,data2) {
+            const data = {              
+                    Part1: data1                  
+                    Part2: data2            
+            };
+            try {
+                const response = await fetch(urlIdent, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        //TODO ajouter securite header et token
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                    return 'errooor';
+                }
+                const responseData = await response.json();            
+                return responseData
+            } catch (error) {
+                console.error('Erreur lors de la récupération des données:', error);
+                return 'Erreur lors de la récupération des données d\'Authentification.';
+            }
+        }
+    
+    </script>   
+    
+  </body>
+</html>
+
