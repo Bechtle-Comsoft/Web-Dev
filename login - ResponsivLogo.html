@@ -176,7 +176,7 @@
         </div>
         <div class="input-group">
           <label id="icon" for="name"><i class="fas fa-user"></i></label>
-          <input type="text" name="name" id="name" placeholder="Nom" required/>
+          <input type="text" name="name" id="name" placeholder="Nom" />
         </div>
         <div class="input-group">
           <label id="icon" for="password"><i class="fas fa-unlock-alt"></i></label>
@@ -184,19 +184,32 @@
         </div>
         <div class="btn-block">
           <p class="privacy-policy">En cliquant sur Enregistrer, vous acceptez notre <a href="https://www.websitepolicies.com/blog/sample-privacy-policy-template">Politique de confidentialité</a>.</p>
-          <button type="submit">Soumettre</button>
-        </div>
+          <button type="submit" onclick="event.preventDefault();apiCall();">Soumettre</button>
+        </div>       
+       <div id="testConnexion">Résultat du login apparaîtra ici!!!!.</div>
       </form>
     </div>
 
     <script>
+    function displayData(selectorCSS, data) {
+            const element = document.querySelector(selectorCSS);
+            if (element) {
+                element.textContent = JSON.stringify(data, null, 2);
+            
+            } else {
+                console.error(`Erreur: L'élément avec le sélecteur "${selectorCSS}" est introuvable.`);
+            }
+        }
     
-    const urlIdent = 'https://test.com'
+    const urlIdent = 'http://172.16.254.30:5678/webhook/62e74156-a953-4b1b-94cb-51b2b5314903'
     
-    async function apiCall(data1,data2) {
+    async function apiCall() {
+            const log = document.getElementById('email').value.toString(); //gerer le caz vide   
+            const pwd = document.getElementById('password').value.toString(); //gerer le caz vide  
+            const targetDiv = '#testConnexion';      
             const data = {              
-                    Part1: data1                  
-                    Part2: data2            
+                    'userName': log,                  
+                    'password': pwd           
             };
             try {
                 const response = await fetch(urlIdent, {
@@ -212,11 +225,12 @@
                     throw new Error(`Erreur HTTP: ${response.status}`);
                     return 'errooor';
                 }
-                const responseData = await response.json();            
-                return responseData
+                const responseData = await response.json();  
+                displayData(targetDiv, responseData);              
+               // return responseData
             } catch (error) {
                 console.error('Erreur lors de la récupération des données:', error);
-                return 'Erreur lors de la récupération des données d\'Authentification.';
+                displaData(targetDiv,'rreur lors de la récupération des données d\'Authentification.');
             }
         }
     
@@ -224,4 +238,3 @@
     
   </body>
 </html>
-
