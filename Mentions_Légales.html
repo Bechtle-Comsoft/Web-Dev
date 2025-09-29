@@ -1,1 +1,315 @@
 
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Azurealpes® Games Booking</title>
+
+  <style>
+
+ body {
+  margin: 0;
+  padding-top :62px; /* Ajoute l'écrat pour que la bannière apparaisse et n'écrase pas le contenu */
+  background-color: #ddd
+ }
+
+
+ /* BANNIERE CENTRALE AU CENTRE */
+
+ .fixed-banner {
+     position: fixed; /* La bannière reste fixe par rapport à la fenêtre du navigateur */
+    top: 0; /* Colle la bannière au bord sup */
+    left: 0; /* Colle a gauche */
+    width: 100%;
+    height: 63px; /* Hauteur */
+    background-color: #000; 
+    color: white; /* Couleur du texte */
+    display: flex; /* flexbox pour centrer le contenu */
+    align-items: center; /* Centre verticalement */
+    justify-content: left; /* Centre a gauche */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère pr effet de profondeur */
+    z-index: 1000; /* Assure que la bannière est au-dessus des autres éléments */
+ }
+
+ .fixed-banner h1 {
+     margin: 0; /* Supprime marge par défaut du titre */
+     font-size: 1.5em;
+ } 
+    /* Styles du logo */
+.logo {
+    height: 42px; /* Hauteur logo */
+    width: auto; /* La largeur auto pr maintenir les proportions */
+    margin-right: 20px;
+}
+
+ /* Menu DE GAUCHE */
+
+ .main-layout {
+     display: flex; /* Utilise Flexbox pour positionner le menu et le contenu */
+     min-height: 100vh; /* S'assure que le conteneur prend au moins toute la hauteur de la vue */
+ }
+
+ .fixed-sidebar {
+     position: fixed; /* Le menu reste fixe par rapport à la fenêtre */
+     top: 62px; /* Laisse la place de la barre centrale */
+     left: 0; /* Colle bord gauche */
+     width: 200px; /* Largeur menu */
+     height: 100%; /* Prend toute la hauteur de la fenêtre restante */
+     background-color: #666666;
+     padding: 20px;
+     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+     z-index: 999; /* Moins que la bannière si vous les combinez */
+ }
+
+ .fixed-sidebar nav ul {
+     list-style: none; /* Supprime les puces des listes */
+     padding: 0;
+ }
+
+ .fixed-sidebar nav ul li {
+     margin-bottom: 10px;
+ }
+
+ .fixed-sidebar nav ul li a {
+     text-decoration: none; /* Supprime le soulignement des liens */
+     color: #333;
+     display: block;
+     padding: 5px 0;
+     transition: color 0.3s ease;
+ }
+
+ .fixed-sidebar nav ul li a:hover {
+     color: #007bff;
+ }
+
+ .main-content {
+     margin-left: 220px; /* Décale contenu principal pour laisser de la place au menu de gauche */
+     padding: 20px;
+     flex-grow: 1; /* Permet au contenu de prendre l'espace restant */
+ }
+
+ /* Media Query pour la responsivité */
+ @media (max-width: 768px) {
+     .fixed-sidebar {
+         display: none; /* Cache le menu si largeur de l'écran est <= à 768px */
+     }
+
+     .main-content {
+         margin-left: 0; /* Supprime le décalage du contenu principal */
+     }
+ }
+
+ /* FIN Menu GAUCHE */
+        button {
+            background-color: #4CAF50; 
+            color: white; /* Texte */
+            padding: 15px 30px; /* Espacement intérieur */
+            border: none; /* Pas de bordure */
+            border-radius: 8px; /* Bords arrondis */
+            cursor: crosshair; /* Curseur de la main au survol */
+            font-size: 18px; /* Taille du texte */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Légèrement plus foncé au survol */
+        }
+    
+        input {
+          width: 100%;
+          height: 30px;
+        }
+
+         #result1 {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 50px;
+        }
+
+         #result2 {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 50px;
+             width: 50%;
+        }
+
+    /*/ container */
+        .containerMid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          border: 2px dashed #ddd;
+          padding: 10px;
+          
+        }
+
+        .item {
+            flex: 1 1 600px; /* 1: peut grandir, 1: peut rétrécir, 600px: largeur de base */
+            border: 1px solid blue;
+            padding: 10px;
+            box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur/hauteur */
+        }
+
+        /* Styles spécifiques pour le premier élément (optionnel) */
+        .item:first-child {
+            border-color: green;
+        }
+
+        /* Styles spécifiques pour le deuxième élément (optionnel) */
+        .item:last-child {
+            border-color: pink;
+        }
+   
+         .item2 {
+            flex: 1 1 200px; /* 1: peut grandir, 1: peut rétrécir, 600px: largeur de base */
+            border: 1px solid blue;
+            padding: 0px;
+            /*Inclut le padding et la bordure dans la largeur/hauteur */
+        }
+
+        /* LE DROPDOWN MENU*/
+      h4 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Basic styling for the label */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+
+.custom-dropdown {
+    width: 200px; /* Set a fixed width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    appearance: none; /* Removes default browser styling for select */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+    cursor: pointer;
+    outline: none; /* Remove outline on focus */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+/* Add custom arrow (optional, as appearance: none removes default) */
+/* This is a common technique to create a custom dropdown arrow */
+.custom-dropdown {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 30px; /* Make space for the custom arrow */
+}
+
+.custom-dropdown:hover {
+    border-color: #999;
+}
+
+/* Styling for when the dropdown is focused (clicked/tabbed to) */
+.custom-dropdown:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Glow effect */
+}
+
+/* Styling for the options (less control here, browser dependent) */
+/* You have limited control over the styling of the individual options within the dropdown */
+.custom-dropdown option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* You can also style the options when they are hovered in some browsers */
+.custom-dropdown option:hover {
+    background-color: #f0f0f0;
+}
+/*fin dropdown*/
+
+  /*mentions légales dans du scrolldown*/
+ .mentions-legales-scroll {
+    height: 300px; 
+    /* Crée la barre de défilement verticale si le contenu dépasse la hauteur définie */
+    overflow-y: scroll; 
+    border: 1px solid #ccc; /* Bordure légère */
+    padding: 20px;
+    background-color: #fff;
+}
+    
+    
+/* A RETIRER ENSUITE MAIS ATTENTION A TOUTES LES URLS CAR TOUT POUR LE DEV !*/
+
+  	  
+</style>
+
+</head>
+<body>
+ <div class="fixed-banner">
+    <img src="https://cdn.leonardo.ai/users/65caef68-b2fc-4b3c-aea2-9b83729fe324/generations/00d49c31-cda1-4d82-a3ff-633dbea000ae/variations/Default_Generate_a_vibrant_highresolution_3D_Logo_that_remind_0_00d49c31-cda1-4d82-a3ff-633dbea000ae_0.png" alt="Mon image de test" class="logo" />
+    <h1>Azurealpes ®</h1>
+ </div>
+
+  <div class="main-layout">
+    <div class="fixed-sidebar">
+        <nav>
+            <ul>
+                <li><a href="http://172.16.254.29:8000/api/fs/download?file=/ApiProd.html&preview=true">Main Menu</a></li>
+                <li><a href="http://172.16.254.29:8000/api/fs/download?file=/Templatehtml.html&preview=true">Profile</a></li>
+            </ul>
+            <hr>
+            <ul>
+                <li><a href="http://172.16.254.29:8000/api/fs/download?file=/index.html&preview=true">Mentions Légales</a></li>
+                <li><a href="#">Créer Réservation</a></li>
+		<li><a href="#">Réservation En Cours</a></li>
+            </ul>
+          
+        </nav>
+    </div>  
+    
+<div class="mentions-legales-scroll">
+    <h2>Mentions Légales</h2>
+    <p>Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l'économie numérique, il est précisé aux utilisateurs du site [Nom du site de l'association] l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
+
+    <h3>Édition du site</h3>
+    <p>Le présent site, accessible à l’URL https://www.du.edu/ (le « Site »), est édité par :</p>
+    <ul>
+        <li><strong>Nom de l'association :</strong> [Nom de l'association]</li>
+        <li><strong>Adresse du siège social :</strong> [Adresse du siège social de l'association]</li>
+        <li><strong>Numéro d'immatriculation :</strong> [Numéro RNA ou SIRET si applicable]</li>
+        <li><strong>Date de déclaration :</strong> [Date de la déclaration de l'association en préfecture]</li>
+    </ul>
+
+    <h3>Hébergement</h3>
+    <p>Le Site est hébergé par l'association elle-même.</p>
+    <ul>
+        <li><strong>Nom de l'hébergeur technique :</strong> Hostinger</li>
+        <li><strong>Adresse de l'hébergeur technique :</strong> Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Cyprus</li>
+        <li><strong>Contact de l'hébergeur technique :</strong> [Numéro de téléphone ou email du support Hostinger]</li>
+    </ul>
+
+    <h3>Directeur de publication</h3>
+    <p>Le Directeur de la publication du Site est [Nom du responsable légal de l'association, ex: le président(e)].</p>
+
+    <h3>Nous contacter</h3>
+    <ul>
+        <li><strong>Par email :</strong> [Adresse email de l'association]</li>
+        <li><strong>Par téléphone :</strong> [Numéro de téléphone de l'association]</li>
+    </ul>
+
+    <h3>Données personnelles</h3>
+    <p>Le traitement de vos données à caractère personnel est régi par notre <a href="https://fr.wikipedia.org/wiki/Politique_de_confidentialit%C3%A9" target="_blank">Politique de Confidentialité</a>, disponible sur https://fr.wikipedia.org/wiki/Politique_de_confidentialit%C3%A9, conformément au Règlement Général sur la Protection des Données 2016/679 du 27 avril 2016 (« RGPD »).</p>
+</div>
+
+    
+  </body>
+</html>
