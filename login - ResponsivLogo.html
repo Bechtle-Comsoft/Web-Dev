@@ -228,6 +228,8 @@ console.log('Token JWT reçu:', responseData[0].token);
         // Vérification et stockage du token
         if (responseData[0].Falsetoken) {
             sessionStorage.setItem('Falsetoken', responseData[0].Falsetoken);
+			sessionStorage.setItem('userName', responseData[0].userName);
+			sessionStorage.setItem('jwtToken', responseData[0].jwtToken);
 	    console.log('ca devrait rerouter');
             // Redirection vers une page sécurisée
             window.location.href = 'http://172.16.254.29:8000/api/fs/download?file=/ApiProd.html&preview=true'; // Remplacez par votre URL de redirection
