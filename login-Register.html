@@ -256,7 +256,7 @@
       const urlIdent = 'http://172.16.254.30:5678/webhook/62e74156-a953-4b1b-94cb-51b2b5314903';
       // *** NOUVELLE ADRESSE API POUR L'ENREGISTREMENT ***
       const urlRegistration = 'http://172.16.254.30:5678/webhook/register-endpoint'; 
-      // ------------------------------------------------
+      // -----------JE DOIS CHANGER L'URL AU DESSUS PAR CELLE D'ENREGISTREMENT------------------------------
       const targetDiv = '#result-message';
 
 
@@ -328,7 +328,7 @@
               }
 
               const responseData = await response.json();
-              console.log('Réponse de l\'API:', responseData);
+              console.log('Réponse de l\'API ou l\'URL:', responseData);
 
               if (type === 'login') {
                   // Logique spécifique à la CONNEXION
@@ -375,4 +375,5 @@
     </script>    
     
   </body>
+
 </html>
