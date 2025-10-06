@@ -327,6 +327,8 @@ label {
 </div> 
       
  <script>
+
+const jwtToken = sessionStorage.getItem('jwtToken');
 //fonctions
 async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
             const data = {              
@@ -338,6 +340,7 @@ async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
                 const response = await fetch(urlJeu, {
                     method: 'POST',
                     headers: {
+			'Authorization': 'Bearer ' + jwtToken, 
                         'Content-Type': 'application/json'
                         //TODO ajouter securite header et token
                     },
