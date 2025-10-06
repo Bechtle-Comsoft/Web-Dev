@@ -298,6 +298,85 @@
           const password = document.getElementById('registerPassword').value;
           const confirmPassword = document.getElementById('confirmPassword').value;
 
+
+          Gemini
+
+2.5 Flash
+
+Conversation avec Gemini
+
+
+Voila mon code.
+
+Peut tu ajoiter la verificzmation que le lot de passe fzit bien 13 caracteres ou plus (moins de 40) et comporte au moons une majuscule et (un nombre ou un symbole)
+
+
+
+le code :
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+
+event.preventDefault();
+
+const email = document.getElementById('registerEmail').value;
+
+const password = document.getElementById('registerPassword').value;
+
+const confirmPassword = document.getElementById('confirmPassword').value;
+
+
+
+if (password !== confirmPassword) {
+
+displayMessage('Erreur : Les mots de passe ne correspondent pas.', true);
+
+return;
+
+}
+
+
+apiCall(urlRegistration, email, password, 'register');
+
+});
+
+
+
+
+Pour appliquer les contraintes de mot de passe, insère une nouvelle vérification avant la comparaison des mots de passe.
+
+Le code modifié :
+
+JavaScript
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const email = document.getElementById('registerEmail').value;
+          const password = document.getElementById('registerPassword').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+
+          // Début de la vérification du mot de passe
+          const minLength = 13;
+          const maxLength = 39; // 'moins de 40' -> max 39
+          const hasUpperCase = /[A-Z]/.test(password);
+          const hasNumberOrSymbol = /[\d\W_]/.test(password); // \d pour nombre, \W pour symbole (non-mot), _ pour underscore inclus dans \W.
+
+          if (password.length < minLength || password.length > maxLength) {
+              displayMessage(`Erreur : Le mot de passe doit contenir entre ${minLength} et ${maxLength} caractères.`, true);
+              return;
+          }
+
+          if (!hasUpperCase) {
+              displayMessage('Erreur : Le mot de passe doit contenir au moins une majuscule.', true);
+              return;
+          }
+
+          if (!hasNumberOrSymbol) {
+              displayMessage('Erreur : Le mot de passe doit contenir au moins un nombre ou un symbole.', true);
+              return;
+          }
+          // Fin de la vérification du mot de passe
+          
+        
           if (password !== confirmPassword) {
               displayMessage('Erreur : Les mots de passe ne correspondent pas.', true);
               return;
@@ -377,3 +456,4 @@
   </body>
 
 </html>
+
