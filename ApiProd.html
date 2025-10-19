@@ -26,14 +26,16 @@
     color: white; /* Couleur du texte */
     display: flex; /* flexbox pour centrer le contenu */
     align-items: center; /* Centre verticalement */
-    justify-content: left; /* Centre a gauche */
+    justify-content: space-between;
+    padding: 0 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère pr effet de profondeur */
     z-index: 1000; /* Assure que la bannière est au-dessus des autres éléments */
  }
 
  .fixed-banner h1 {
-     margin: 0; /* Supprime marge par défaut du titre */
+     margin: 0;
      font-size: 1.5em;
+  margin-right: 20px;
  } 
     /* Styles du logo */
 .logo {
@@ -87,13 +89,45 @@
      padding: 20px;
      flex-grow: 1; /* Permet au contenu de prendre l'espace restant */
  }
+   /* Styles du bouton de bascule (Hamburger) */
+#menu-toggle-button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 2em;
+    line-height: 1;
+    padding: 5px 10px;
+    cursor: pointer;
+    /* Masqué par défaut sur les grands écrans */
+    display: none; 
+    order: 3; /* Assure qu'il est à l'extrême droite */
+}
 
  /* Media Query pour la responsivité */
  @media (max-width: 768px) {
      .fixed-sidebar {
-         display: none; /* Cache le menu si largeur de l'écran est <= à 768px */
+         /* AJOUTER : Mise en page pour le mobile */
+         position: fixed;
+         height: calc(100% - 62px); /* Hauteur restante après la bannière */
+         width: 250px; /* Plus large pour le mobile */
+         transform: translateX(-100%); /* Masquer le menu hors de l'écran par défaut */
+         transition: transform 0.3s ease-out; /* Animation de transition */
+         /* AJOUTER : Affiche sur le dessus des autres éléments */
+         z-index: 998;
+         /* MODIFICATION: Laissez le 'display: none;' pour qu'il soit invisible si le JS n'est pas actif (graceful degradation), mais on va utiliser le transform */
+         /* Mieux: Enlevez display: none; et utilisez transform: translateX(-100%); pour l'animation */
+         /* display: none; */
      }
-
+/* CLASSE AJOUTÉE PAR JS QUAND LE MENU EST OUVERT */
+     .fixed-sidebar.is-open {
+         transform: translateX(0); /* Afficher le menu */
+         box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+     }
+     
+     /* AFFICHE LE BOUTON SUR MOBILE */
+     #menu-toggle-button {
+         display: block; 
+     }
      .main-content {
          margin-left: 0; /* Supprime le décalage du contenu principal */
      }
@@ -234,32 +268,31 @@ label {
     background-color: #f0f0f0;
 }
 /*fin dropdown*/
-
-/* A RETIRER ENSUITE MAIS ATTENTION A TOUTES LES URLS CAR TOUT POUR LE DEV !*/
-
-
-	  
+    
 </style>
 
 </head>
 <body>
  <div class="fixed-banner">
     <img src="https://cdn.leonardo.ai/users/65caef68-b2fc-4b3c-aea2-9b83729fe324/generations/3ff4bb09-3030-4371-ac86-1ab69946b291/AlbedoBase_XL_Professional_graphic_design_2D_illustration_Crea_3.jpg" alt="Mon image de test" class="logo" />
-    <h1>Azurealpes ®</h1>
+    <h1>Ma Bannière Fixe - Titre</h1>
+  <button id="menu-toggle-button" aria-expanded="false" aria-controls="fixed-sidebar">
+        ☰ </button>
  </div>
 
   <div class="main-layout">
     <div class="fixed-sidebar">
         <nav>
             <ul>
-                <li><a href="http://172.16.254.29:8000/api/fs/download?file=/ApiProd.html&preview=true">Main Menu</a></li>
-                <li><a href="http://172.16.254.29:8000/api/fs/download?file=/ProfilePage.html&preview=true">Profile</a></li>
+                <li><a href="ApiProd.html">Main Menu</a></li>
+                <li><a href="test.html">Registration</a></li>
+                <li><a href="#">Lien 3</a></li>
+                <li><a href="#">Lien 4</a></li>
             </ul>
             <hr>
             <ul>
-                <li><a href="http://172.16.254.29:8000/api/fs/download?file=/Mentions_Légales.html&preview=true">Mentions Légales</a></li>
-                <li><a href="#">Créer Réservation</a></li>
-				<li><a href="#">Réservation En Cours</a></li>
+                <li><a href="www.google.com">Lien google</a></li>
+                <li><a href="#">Lien 62</a></li>
             </ul>
           
         </nav>
@@ -327,8 +360,6 @@ label {
 </div> 
       
  <script>
-
-const jwtToken = sessionStorage.getItem('jwtToken');
 //fonctions
 async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
             const data = {              
@@ -340,7 +371,6 @@ async function recupData2(urlJeu,jeuCall="/listerTout",yesOrno="none") {
                 const response = await fetch(urlJeu, {
                     method: 'POST',
                     headers: {
-			'Authorization': 'Bearer ' + jwtToken, 
                         'Content-Type': 'application/json'
                         //TODO ajouter securite header et token
                     },
@@ -444,10 +474,45 @@ document.addEventListener('DOMContentLoaded', () => {
         displayData(targetDiv, { error: `Impossible probleme button}` });
     }            
  
- //je dois ?? creer une requete GET pr lister tout et pas POST 
- //car un Get doit avoir seulement donnee dans l'URL
 	
 	peuplerListeDeroulante();
+ 
+ const toggleButton = document.getElementById('menu-toggle-button');
+    const sidebar = document.querySelector('.fixed-sidebar');
+
+    if (toggleButton && sidebar) {
+        // La fonction de bascule
+        function toggleMenu() {
+            // Bascule la classe 'is-open' sur le menu
+            const isMenuOpen = sidebar.classList.toggle('is-open');
+            
+            // Met à jour l'attribut ARIA pour l'accessibilité
+            toggleButton.setAttribute('aria-expanded', isMenuOpen);
+            
+            // Optionnel : Changer l'icône du bouton (ex: X à la place de ☰)
+            toggleButton.textContent = isMenuOpen ? '✕' : '☰'; 
+        }
+
+        // Événement au clic
+        toggleButton.addEventListener('click', toggleMenu);
+        
+        // OPTIONNEL : Fermer le menu si l'utilisateur clique sur un lien (sur mobile)
+        const menuLinks = sidebar.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Vérifie si le menu est actuellement ouvert (classe 'is-open')
+                if (sidebar.classList.contains('is-open')) {
+                    toggleMenu(); // Ferme le menu
+                }
+            });
+        });
+        
+    } else {
+        console.error("Éléments de bascule du menu (bouton ou barre latérale) introuvables.");
+    }
+ 
+ 
+ 
   })
  
   //teste dorpdown
