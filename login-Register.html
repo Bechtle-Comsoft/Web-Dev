@@ -367,7 +367,8 @@ if (password.length < minLength || password.length > maxLength) {
                       displayMessage('Connexion réussie. Redirection en cours...', false);
                       console.log('Token JWT reçu et stocké. Redirection.');
                       // Redirection vers une page sécurisée
-                      window.location.href = 'http://172.16.254.29:8000/api/fs/download?file=/ApiProd.html&preview=true'; 
+                     // window.location.href = 'http://172.16.254.29:8000/api/fs/download?file=/ApiProd.html&preview=true'; 
+					   window.location.href = 'ApiProd.html'; 
                   } else {
                       displayMessage('Token non reçu. Authentification échouée.', true);
                   }
@@ -399,3 +400,4 @@ if (password.length < minLength || password.length > maxLength) {
     
   </body>
 </html>
+
