@@ -201,8 +201,6 @@ label {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
 }
 
-/* Add custom arrow (optional, as appearance: none removes default) */
-/* This is a common technique to create a custom dropdown arrow */
 .custom-dropdown {
     background-image: url('data:image/svg+xml;utf8,<svg fill="#666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
@@ -221,8 +219,6 @@ label {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Glow effect */
 }
 
-/* Styling for the options (less control here, browser dependent) */
-/* You have limited control over the styling of the individual options within the dropdown */
 .custom-dropdown option {
     padding: 10px;
     background-color: #fff;
@@ -237,16 +233,11 @@ label {
 .mainimg {
   /* 1. Définir la largeur à 80% du conteneur */
   width: 70%;
-
   /* 2. Convertir en élément de bloc pour le centrage horizontal par marge */
   display: block;
-
   /* 3. Centrer horizontalement l'image dans son conteneur */
   margin-left: auto;
   margin-right: auto;
-
-  /* Alternative courte pour les marges auto */
-  /* margin: 0 auto; */
 }
     
 
@@ -257,23 +248,15 @@ label {
 /* A RETIRER ENSUITE MAIS ATTENTION A TOUTES LES URLS CAR TOUT POUR LE DEV !*/
 
 #Saisie_Jeu {
-  /* 1. Barres de saisie avec des bouts arrondis */
-  /* Définit le rayon des bords (plus la valeur est élevée, plus l'arrondi est prononcé) */
   border-radius: 40px; /* Ajustez cette valeur si nécessaire */
 
   /* (Optionnel) Ajoute un léger rembourrage pour l'esthétique */
   padding: 8px 10px;
 }
 
-/* 2. Style pour le texte de l'espace réservé (placeholder) */
-/* Cible spécifiquement le texte "Jeu à choisir" */
 #Saisie_Jeu::placeholder {
   /* Police en italique */
   font-style: italic;
-
-  /* Police grise claire */
-  /* Utilisez un code hexadécimal pour une couleur précise. */
-  /* #aaa est un gris clair commun, vous pouvez choisir la nuance exacte. */
   color: #aaa;
 }
 	  
